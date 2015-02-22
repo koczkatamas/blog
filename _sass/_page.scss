@@ -498,7 +498,6 @@ header .entry-meta {
     opacity: 1.0;
 }
 .dl-menuwrapper ul ul { background-color:transparent }
-
 .entry-header { 
     @media #{$large} {
         width:800px;
@@ -506,20 +505,17 @@ header .entry-meta {
         @include border-radius(5px,5px,0,0);
     }
 }
-
 .entry-header img { 
     @media #{$large} {
         @include border-radius(5px,5px,0,0);
     }
 }
-
 .entry-image .largeImg {
     display:none;
     @media #{$large} {
         display:block;
     }
 }
-
 .entry-image .smallImg {
     @media #{$large} {
         display:none;
