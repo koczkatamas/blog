@@ -19,7 +19,8 @@
 <div class="entry-header">
   {% if page.image.credit %}<div class="image-credit">Image source: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
   <div class="entry-image">
-    <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}">
+    <img class="largeImg" src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}">
+    <img class="smallImg" src="{{ site.url }}/images/back-small.jpg" alt="{{ page.title }}">
   </div><!-- /.entry-image -->
 </div><!-- /.entry-header -->
 {% endif %}
@@ -29,7 +30,7 @@
     <header class="header-title">
       <div class="header-title-wrap">
         <h1 class="entry-title">{{ page.title }}</h1>
-        {% if site.reading_time %}
+        {% if false/*site.reading_time*/ %}
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           {% assign readtime = content | number_of_words | divided_by:site.words_per_minute %}

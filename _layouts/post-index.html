@@ -16,11 +16,12 @@
 {% include navigation.html %}
 </div>
 
-<div class="entry-header" style="display:none">
+<div class="entry-header">
   {% if page.image.credit %}<div class="image-credit">Image source: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
   {% if page.image.feature %}
     <div class="entry-image">
-      <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}">
+      <img class="largeImg" src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}">
+      <img class="smallImg" src="{{ site.url }}/images/back-small.jpg" alt="{{ page.title }}">
     </div><!-- /.entry-image -->
   {% endif %}
   <div class="header-title">

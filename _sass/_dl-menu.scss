@@ -359,7 +359,10 @@ All this is done for any sub-level being entered.
 .dl-menuwrapper button:hover,
 .dl-menuwrapper button.dl-active,
 .dl-menuwrapper ul {
-	background: rgba($comp-color,0.8);
+//    background: $comp-color;
+//    @media #{$large} {
+        background: rgba($comp-color,0.85);
+//    }
 }
 // Fix for IE
 .dl-menu li {
