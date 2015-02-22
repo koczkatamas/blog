@@ -32,6 +32,16 @@ body {
 	width: 100%;
 	overflow: hidden;
 	position: relative;
+    @media #{$large} {
+        width:800px;
+        margin:30px auto;
+        @include border-radius(5px,5px,0,0);
+    }
+    img {
+        @media #{$large} {
+            @include border-radius(5px,5px,0,0);
+        }
+    }
 }
 .header-title {
 	text-align: center;
@@ -128,6 +138,17 @@ body {
 		min-width: 50%;
 		min-height: 250px; // match .entry-image min-height
 	}
+    .largeImg {
+        display:none;
+        @media #{$large} {
+            display:block;
+        }
+    }
+    .smallImg {
+        @media #{$large} {
+            display:none;
+        }
+    }    
 }
 // Feature Image Caption
 .image-credit {
@@ -498,26 +519,3 @@ header .entry-meta {
     opacity: 1.0;
 }
 .dl-menuwrapper ul ul { background-color:transparent }
-.entry-header { 
-    @media #{$large} {
-        width:800px;
-        margin:30px auto;
-        @include border-radius(5px,5px,0,0);
-    }
-}
-.entry-header img { 
-    @media #{$large} {
-        @include border-radius(5px,5px,0,0);
-    }
-}
-.entry-image .largeImg {
-    display:none;
-    @media #{$large} {
-        display:block;
-    }
-}
-.entry-image .smallImg {
-    @media #{$large} {
-        display:none;
-    }
-}
