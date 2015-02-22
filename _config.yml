@@ -1,6 +1,6 @@
-title:            Site Title
-description:      Describe your website here.
-disqus_shortname: hpstrtheme
+title:            kt.pe blog
+description:      kt.pe blog
+disqus_shortname: ktpeblog
 reading_time:     true
 words_per_minute: 200
 # Your site's domain goes here (eg: //mmistakes.github.io, http://mademistakes.com, etc)
@@ -9,14 +9,14 @@ url: https://kt.pe/blog
 
 # Owner/author information
 owner:
-  name:           Your Name
+  name:           Tamás Koczka
   avatar:         avatar.jpg
-  bio:            "Your bio goes here. It shouldn't be super long but a good two sentences or two should suffice."
-  email:          you@email.com
+  bio:            "Works @ Tresorit. Plays @ SpamAndHex CTF team. Does security stuff."
+  email:          koczkatamas+ktpe@gmail.com
   # Social networking links used in footer. Update and remove as you like.
-  twitter:        
-  facebook:       
-  github:         
+  twitter:        koczkatamas
+  facebook:       koczkatamas
+  github:         koczkatamas
   stackexchange:  
   linkedin:       
   instagram:      
@@ -46,7 +46,7 @@ sass:
   style: compressed
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+permalink:   /:categories/:year/:month/:title/
 
 # Amount of post to show on home page
 paginate: 5
