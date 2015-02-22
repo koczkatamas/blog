@@ -10,7 +10,7 @@
 					<h4>{{ site.owner.name }}</h4>
 					<p>{{ site.owner.bio }}</p>
 				</li>
-				<li><a href="{{ site.url }}/about/"><span class="btn btn-inverse">Learn More</span></a></li>
+				<!-- <li><a href="{{ site.url }}/about/"><span class="btn btn-inverse">Learn More</span></a></li> -->
 				{% if site.owner.email %}<li>
 					<a href="mailto:{{ site.owner.email }}"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>{% endif %}
@@ -50,13 +50,14 @@
 				<li><a href="{{ site.url }}/tags/">All Tags</a></li>
 			</ul>
 		</li>
+        <li><a href="https://kt.pe/tools.html">My JS tools</a></li>
 		{% for link in site.data.navigation %}
-	    {% if link.url contains 'http' %}
-	        {% assign domain = '' %}
-	        {% else %}
-	        {% assign domain = site.url %}
-	    {% endif %}
-	    <li><a href="{{ domain }}{{ link.url }}" {% if link.url contains 'http' %}target="_blank"{% endif %}>{{ link.title }}</a></li>
+            {% if link.url contains 'http' %}
+                {% assign domain = '' %}
+                {% else %}
+                {% assign domain = site.url %}
+            {% endif %}
+            <li><a href="{{ domain }}{{ link.url }}" {% if link.url contains 'http' %}target="_blank"{% endif %}>{{ link.title }}</a></li>
 	  {% endfor %}
 	</ul><!-- /.dl-menu -->
 </nav><!-- /.dl-menuwrapper -->

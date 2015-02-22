@@ -10,9 +10,13 @@
 <body id="post-index" {% if page.image.feature %}class="feature"{% endif %}>
 
 {% include browser-upgrade.html %}
-{% include navigation.html %}
 
-<div class="entry-header">
+<div id="leftBackColor"></div>
+<div id="leftBackImage" style="background-image: url({{ site.url }}/images/back.jpg);">
+{% include navigation.html %}
+</div>
+
+<div class="entry-header" style="display:none">
   {% if page.image.credit %}<div class="image-credit">Image source: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
   {% if page.image.feature %}
     <div class="entry-image">
@@ -28,7 +32,7 @@
 </div><!-- /.entry-header -->
 
 <div id="main" role="main">
-  {{ content }}
+{{ content }}
 </div><!-- /#main -->
 
 <div class="footer-wrapper">

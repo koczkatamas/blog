@@ -45,7 +45,7 @@ body {
 			@include font-rem(48);
 		}
 		@media #{$large} {
-			@include font-rem(60);
+			@include font-rem(48);
 		}
 	}
 	h2 {
@@ -158,6 +158,7 @@ body {
 // Single Post and Page
 // --------------------------------------------------
 .entry-meta {
+    margin-left:15px;
 	@include font-rem(12);
 	text-transform: uppercase;
 	color: lighten($base-color,60);
@@ -214,6 +215,7 @@ header .entry-meta {
 			max-width: 800px;
 			margin: 50px auto 30px auto;
 			padding: 50px 80px;
+            @include border-radius(5px,5px,0,0);
 			> p:first-child {
 				@include font-size(20);
 			}
@@ -357,7 +359,7 @@ header .entry-meta {
 		}
 		@media #{$large} {
 			max-width: 800px;
-			margin-top: 50px;
+			margin-top: 30px;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -374,6 +376,7 @@ header .entry-meta {
 		@media #{$large} {
 			margin-bottom: 30px;
 			padding: 50px 80px;
+            @include border-radius(5px,5px,0,0);
 		}
 	}
 }
@@ -395,7 +398,10 @@ header .entry-meta {
 		margin-bottom: 20px;
 	}
 	img {
-		@include border-radius(3px,0,0,3px); // round image corners
+        @include border-radius(3px,0,0,3px);
+        @media #{$large} {
+            @include border-radius(5px,0,0,0); // round image corners
+        }
 	}
 }
 
@@ -462,3 +468,31 @@ header .entry-meta {
 #goog-wm-sb {
 	@extend .btn;
 }
+#leftBackColor, #leftBackImage {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    margin-right:400px;
+    display:none;
+    @media #{$large} {
+        display:block;
+    }
+}
+
+#leftBackColor { 
+    z-index:998;
+    background: black;
+}
+#leftBackImage { 
+    z-index:999;
+    background-position: 98% center;
+    background-size: auto 100%;
+    opacity: 0.85;
+    @include transition(opacity .25s ease-in-out);
+}
+#leftBackImage:hover { 
+    opacity: 1.0;
+}
+.dl-menuwrapper ul ul { background-color:transparent }

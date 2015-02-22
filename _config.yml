@@ -1,4 +1,4 @@
-title:            kt.pe blog
+title:            /var/log/security/kt.log
 description:      kt.pe blog
 disqus_shortname: ktpeblog
 reading_time:     true
@@ -11,11 +11,11 @@ url: https://kt.pe/blog
 owner:
   name:           Tamás Koczka
   avatar:         avatar.jpg
-  bio:            "Works @ Tresorit. Plays @ SpamAndHex CTF team. Does security stuff."
+  bio:            "Works @ <a href='https://tresorit.com' target='_blank'>Tresorit</a>.<br>Plays @ <a href='https://ctftime.org/team/5347' target='_blank'>SpamAndHex</a>.<br>Does security stuff."
   email:          koczkatamas+ktpe@gmail.com
   # Social networking links used in footer. Update and remove as you like.
   twitter:        koczkatamas
-  facebook:       koczkatamas
+  #facebook:       koczkatamas
   github:         koczkatamas
   stackexchange:  
   linkedin:       
@@ -23,7 +23,7 @@ owner:
   flickr:         
   tumblr:         
   # google plus id, include the '+', eg +mmistakes
-  google_plus:    +yourid
+  #google_plus:    +yourid
 
 # Background image to be tiled on all pages
 background: 

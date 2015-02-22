@@ -10,7 +10,10 @@
 <body id="page" {% if page.image.feature %}class="feature"{% endif %}>
 
 {% include browser-upgrade.html %}
+<div id="leftBackColor"></div>
+<div id="leftBackImage" style="background-image: url({{ site.url }}/images/back.jpg);">
 {% include navigation.html %}
+</div>
 
 {% if page.image.feature %}
 <div class="entry-header">
