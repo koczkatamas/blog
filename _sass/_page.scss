@@ -88,13 +88,14 @@ body {
 	h1 {
 		margin: 10px;
 		font-weight: 700;
-		margin: 10px 60px;
+		margin: 10px 0px;
 		color: $white;
 		text-shadow: 1px 1px 4px rgba($base-color,0.6);
 		a {
 			color: $white;
 		}
 		@media #{$large} {
+            margin: 10px 60px;
 		}
 	}
 	h2 {
@@ -139,16 +140,25 @@ body {
 		min-height: 250px; // match .entry-image min-height
 	}
     .largeImg {
-        display:none;
+        display: none;
         @media #{$large} {
-            display:block;
+            display: block;
         }
     }
     .smallImg {
+        position: absolute;
+        width: 75%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: 100% top;
+        background-size: 100% auto;
+        @media(max-width: 495px) {
+            background-size: auto 100%;
+        }
         @media #{$large} {
             display:none;
         }
-    }    
+    }
 }
 // Feature Image Caption
 .image-credit {
@@ -519,3 +529,9 @@ header .entry-meta {
     opacity: 1.0;
 }
 .dl-menuwrapper ul ul { background-color:transparent }
+.author-photo {
+    @media #{$smaller} {
+        max-width: 150px;
+        margin: 0 20px;
+    }
+}
