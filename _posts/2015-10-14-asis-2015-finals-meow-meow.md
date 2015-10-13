@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: meow meow
+title: "ASIS 2015 Finals: meow meow"
 modified: 2015-10-14
 tags: asis, asis2015finals, misc
 ---
@@ -19,12 +19,12 @@ You have to replace the underscore with a number depending how many underscore f
 
 You can evaluate in this for example in python to this number:
 
-{% highlight %}
+{% highlight text %}
 341864076565289913991194230839622826699458146321693262127464374283953336041975703075161723713
 {% endhighlight %}
 
 Converting this number to ASCII (for example with my JS tools on kt.pe) gives you the flag:
 
-{% highlight %}
+{% highlight text %}
 ASIS{981e1ea684c8055f60e3a58cabb4c060}
 {% endhighlight %}

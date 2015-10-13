@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: calcexec II
+title: "ASIS 2015 Finals: calcexec II"
 modified: 2015-10-14
 tags: asis asis2015finals .net mono pwn
 ---
@@ -15,7 +15,11 @@ Also there were some character encoding problem (it probably tried to interpret 
 
 After calling an "ls" it turned out the flag was in the flag2-03dae19b720939043d87fbf67342c2e8.txt file.
 
+{% highlight text %}
 And the flag was: ASIS{9009eeab9869a8098acd7bb19f079230}
+{% endhighlight %}
+
+### Exploit code
 
 {% highlight python %}
 #!/usr/bin/env python

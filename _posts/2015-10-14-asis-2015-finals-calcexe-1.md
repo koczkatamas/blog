@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: calcexec I
+title: "ASIS 2015 Finals: calcexec I"
 modified: 2015-10-14
 tags: asis asis2015finals [digital signature] .net
 ---
@@ -31,7 +31,11 @@ Although our certificate is not deleted from the trusted CA store, it is not loa
 
 The attached C# code snippet (calcexe1.cs) will generate the fake CA and the fake certificate.
 
+{% highlight text %}
 The flag was: ASIS{e5cb5e25f77c1da6626fb78a48a678f3}
+{% endhighlight %}
+
+### Exploit code
 
 {% highlight csharp %}
 using System;

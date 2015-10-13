@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: Bodu
+title: "ASIS 2015 Finals: Bodu"
 modified: 2015-10-14
 tags: asis asis2015finals crypto
 ---
@@ -24,14 +24,17 @@ So I remembered other RSA attacks from previous CTFs and how much time this page
 The last attack is the Boneh Durfee attack, which is you know BO-neh DU-rfee => BODU just like the challenge's name, so I instantly know this will solve the challenge (also a lot of other teams are already solved it, so it should be not too hard challenge either).
 
 Running budo.sage will give us the private exponent (d): 
-89508186630638564513494386415865407147609702392949250864642625401059935751367507
+{% highlight python %}
+d = 89508186630638564513494386415865407147609702392949250864642625401059935751367507
+{% endhighlight %}
 
 The executing pow(c,d,N) in python give us the following plaintext:
-{% highlight %}
+{% highlight text %}
 7105857801457696083098669180371125182430908825274295869462261196993232333904846182088682459845909159924079587285438988882837378435398205428800773161869836747653246664819269651173622798039814934439562046448483899123585744167522783235535219103995347045452193429764349550389498609273176996913420550906739978
 {% endhighlight %}
 
 Converting this to ASCII (for example with my javascript based conversion tools, hosted on https://kt.pe/tools.html) will give us the flag (it is padded with PKCS v1.5 padding, but contrary to OAEP padding the flag is readable instantly):
-{% highlight %}
+
+{% highlight text %}
 ASIS{b472266d4dd916a23a7b0deb5bc5e63f}
 {% endhighlight %}

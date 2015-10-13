@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: Shop-2
+title: "ASIS 2015 Finals: Shop-2"
 modified: 2015-10-14
 tags: asis, asis2015finals, pwn
 ---
@@ -15,7 +15,7 @@ Although the program tried to nullify the object, but it did not nullify the poi
 
 To make the exploit stable I had to leak some addresses. To do this I overwrite the whole item structure until the ptr value:
 
-{% highlight %}
+{% highlight text %}
 00000000 Item            struc ; (sizeof=0x88)   ; XREF: .data:globItemStructs9r
 00000000 idx             dd ?                    ; XREF: .data:globItemPtrs16o
 00000004 inited          db ?
@@ -33,9 +33,12 @@ This way the address of the KnightRider preview function is leaked out, then I l
 
 Then in the next round I simple overwrite the pointer with the calculated system address and got a shell :)
 
-{% highlight %}
-The flag was: ASIS{5249b4cc1527739c57fbd04ab14292ca}
+The flag was:
+{% highlight text %}
+ASIS{5249b4cc1527739c57fbd04ab14292ca}
 {% endhighlight %}
+
+### Exploit code
 
 {% highlight python %}
 #!/usr/bin/env python

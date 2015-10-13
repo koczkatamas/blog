@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: 10-sed
+title: "ASIS 2015 Finals: Strange"
 modified: 2014-12-24
 tags: asis, asis2015finals, crypto
 ---
@@ -21,7 +21,7 @@ We have to make some educated guesses. Looking into the file contents you can se
  
 So I used one of my helper method which gave me a quick summary of the contents of the file:
 
-{% highlight %}
+{% highlight text %}
 \x89PNG\x0d\x0a\x1a\x0a\x00\x00\x00\x0d
 IHDR\x00\x05C\x9b\x00\x05C\x9b\x01\x03\x00\x00\x00\xa5\xa5\x12\xb1\x00\x00\x00\x06
 PLTE@\x00\xe0\xe0\x00@\xa3~c\xab\x00\xdb\xfd\xf1
@@ -40,7 +40,7 @@ As the file’s BitDepth is 1, this means the 1 byte contains 8 pixel informatio
 As I did not want to decompress this much data to my hard disk I wrote a C# script to seek into the middle of the image data (so to about 7.4GB) and read the middle of the file and extracted a few MB’s of RAW data.
 
 I created a summary of this too:
-{% highlight %}
+{% highlight text %}
 <2154200x00>\xf1\xfc...36 bytes...\xcf\x0a
 <43085x00>\xf1\xf9\x8...\xe7\x0a
 <43085x00>\xf5\xf3\xef...\xcf\x0a
@@ -57,8 +57,8 @@ for (int i = 0; i < 16; i++)
 {% endhighlight %}
 
 And converted the bytes to bits aka. pixels in this case (with my web-based conversion toolset hosted on https://kt.pe/tools.html) and replaced "1" characters with space " " to make it more readable:
-{% highlight %}
-    000       00000     0    00000      0             000     0000        00    00   000               000      000    0              0    000     000000      00                     0000      000      000     00           000000        0      00       00     000        00    00   000     0000     0000        00  00    
+{% highlight text %}
+....000       00000     0    00000      0             000     0000        00    00   000               000      000    0              0    000     000000      00                     0000      000      000     00           000000        0      00       00     000        00    00   000     0000     0000        00  00    
     000      00  000    0   00  000    0            000 00   00  00       00   00  000 00             00 00    00 00   0              0  000 00    0           00                    00  00    00 00   000 00   00            0             0      00       00    00 00       00   00   00 00   00  00   00  00       00   00   
     0 0     00     0    0  00     0    0            00   00  0    00     000   00  00   00           00   00  00   00  0              0  00   00  00          000                    0    00  00   00  00   00  00           00             0     000      000   00   00     000   00  00   00  0    00  0    00     000    0   
    00 00    00     0    0  00     0    0     000    00   00  0    00    0000  0000 00   00   00000   0        0    00  0 000     0000 0  00   00  00         0000    0000    00000   0     0  0    00  0     0 0000  00000   00        0000 0    0000     0000   0          0000  0000 0    00  0    00  0     0    0000    0   
@@ -72,6 +72,7 @@ And converted the bytes to bits aka. pixels in this case (with my web-based conv
 00       0    00000     0    00000     0     000     0000     0000        00   00   0000     000  00   000      000    0 000     0000 0   0000     0000        00    0000    000  00  0000      000    0000000  00   000  00  0000     0000 0      00       00     000        00   00    000     0000     0000        00    0   
 {% endhighlight %}
 
-{% highlight %}
-The flag was: ASIS{e834f8a60bd854ca902fa5d4464f0394}
+The flag was: 
+{% highlight text %}
+ASIS{e834f8a60bd854ca902fa5d4464f0394}
 {% endhighlight %}

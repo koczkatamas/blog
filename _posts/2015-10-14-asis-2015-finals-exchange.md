@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: Exchange
+title: "ASIS 2015 Finals: Exchange"
 modified: 2015-10-14
 tags: asis, asis2015finals, reverse
 ---
@@ -14,7 +14,9 @@ After reversing the code, I found out what is the purpose of different functions
 0x18B0 - int* asciiToBigInt(char* input, int input): converts an ASCII string (right padded with \x00 bytes to 128 len) to an internal representation (I call it "bigInt") where every base 10 digit is stored as a 4 byte int containing byte 0x00 - 0x09. The data is in little endian order. So the last digit is the first integer.
 
 For example if the input is "A", then it is padded to "A"+"\x00"*127, which can be represented as big integer as:
+{% highlight text %}
 45644552252363489844689389609877581127018946730957002823331856543955562216240478920414261820142538442862528914811095969718052089738035470554824542935803976892792629189907252120936110445628891085017384343302833495994061696688515965999235750723256915686006965603508239787486605414067115468024602193068650659840
+{% endhighlight %}
 
 So the internal representation will be as integer: 0,4,8,9,...,4,6,5,4. As bytes: 00000000 04000000 0800000000 0900000000 ...
 
@@ -27,11 +29,13 @@ So the internal representation will be as integer: 0,4,8,9,...,4,6,5,4. As bytes
 0x2540 - void divideBy2(int *input): input /= 2 for bigints
 0x13B0 - int* algoAvg(int *input1, int *input2, __int64 roundNum): this is the main magic method, can be summarized as this:
 
+{% highlight python %}
 while round--:
   tmp = (a + b) / 2
   a = b
   b = tmp
-
+{% endhighlight %}
+  
 As the round number was too much and it would be days to run, I patched the binary and lowered the round from 0x0f0000000000000f to 0x0f000f which should give me almost the correct result.
 
 ![alt]({{ site.url }}/images/asis2015finals/exchange1.png)
@@ -55,8 +59,9 @@ Knowing these functions the main method can be summarized as this:
 Although I don't understand exactly but in the cases I tested the two parts are separated by the 0x00, 0x01, 0x02 byte series.
 
 So decrypting the flag can be done by:
+
  - splitting the flag_enc file into two parts (avg1 and avg2), the parts are separated by 0x000102
- - calculating (equations are determined by doing some basic math)
+ - calculating (equations are determined by doing some basic math) 
    - input2 = (4 * avg1 - avg2) * 3 / 7
    - input1 = 3 * avg1 - 2 * input2;
  - joining the two parts* (as decimal strings)
@@ -64,7 +69,12 @@ So decrypting the flag can be done by:
  
 * I had to bruteforce a little as the input1's last digits were not correct, so I tried to add 0..255 to input1 before joining the strings and doing this until I found "ASIS{"
 
-The plaintext was: "Woow! you are good at math! So the flag is ASIS{93b838ecffa1b11c2f5bcf77c2596494}, good luck :-(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿY"
+The plaintext was: 
+{% highlight text %}
+Woow! you are good at math! So the flag is ASIS{93b838ecffa1b11c2f5bcf77c2596494}, good luck :-(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿY
+{% endhighlight %}
+
+### Exploit code
 
 {% highlight csharp %}
 var enc = File.ReadAllBytes("flag_enc");

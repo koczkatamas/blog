@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ASIS 2015 Finals: Shop-1
+title: "ASIS 2015 Finals: Shop-1"
 modified: 2015-10-14
 tags: asis, asis2015finals, pwn
 ---
@@ -10,9 +10,9 @@ The main vulnerability for getting the admin password is that if you send in a m
 As the program prints out the logged in username this leads to leaking out the next value in the stack: the memcmp result of the admin password.
 
 {% highlight c %}
-  char username[32]; // [sp+20h] [bp-70h]@3
-  char password[64]; // [sp+40h] [bp-50h]@3
-  int memcmpResult; // [sp+80h] [bp-10h]@5
+char username[32]; // [sp+20h] [bp-70h]@3
+char password[64]; // [sp+40h] [bp-50h]@3
+int memcmpResult; // [sp+80h] [bp-10h]@5
 {% endhighlight %}
 
 So the attack was basically: 
@@ -23,7 +23,12 @@ So the attack was basically:
  - read the leaked value, this will be the positive difference between "~" and the next character from the password
  - logout and try again, until you found the password and can login as admin :)
  
-The admin password (=flag): ASIS{304b0f16eb430391c6c86ab0f3294211}
+The admin password (=flag):
+{% highlight text %}
+ASIS{304b0f16eb430391c6c86ab0f3294211}
+{% endhighlight %}
+
+### Exploit code
 
 {% highlight python %}
 #!/usr/bin/env python
