@@ -56,7 +56,14 @@ var searcherStr = String.Join("\r\n\r\n", searcher.Select(x => "Question #" + x.
 var answer = String.Join("", searcher.Select(x => x.choices.OrderBy(y => Math.Abs(y.Perc - x.good)).First().A));
 {% endhighlight %}
 
-This generated the following output (question #0 is your age, your name does not matter):
+This file contains the 100 questions and to path to reach them: [mbti_path.txt]({{ site.url }}/images/asis2015finals/mbti_path.txt)
+
+This generated the template of following output:
+
+ - Question #0 is the answer to the age question (your name does not matter)
+ - The number after the question if the relative length of the response found in the pcap
+ - The "P" values of the answers are the calculated relative lengths of that answer
+ - The smaller the difference between the two numbers the more likely that that answer was choosen
 
 {% highlight text %}
 Answer = 1101131103330121020113013
@@ -212,7 +219,9 @@ Question #24 => 0,1984
 [X] Q:24 A:3 L:051 P:0,1899 = You consider the scientific approach to be the best
 {% endhighlight %}
 
-About question #12 we wasn't sure about (there were 2 possibilities with the same 0.9177% length) and of course we didn't know the answer to the last question. This left us with 2*4=8 possibilities, which we tried out by hand.
+As you can see in the most cases the answer was obvious, but we wasn't sure about question #12 (there were 2 possibilities with the same 0.9177% relative length) and of course we didn't know the answer to the last question. 
+
+This left us with 2 * 4 = 8 possibilities, which we tried out by hand:
 
 {% highlight text %}
 First number is the answer to the question #12, second number is the answer to the last question.
@@ -227,8 +236,8 @@ First number is the answer to the question #12, second number is the answer to t
 32 - ASIS{01d3c6afe8046b28eef7ac98a19cae85} - good flag!
 {% endhighlight %}
 
-
 So the right combination was: 11011311033331210201130132, which gave us the right flag:
+
 {% highlight text %}
 ASIS{01d3c6afe8046b28eef7ac98a19cae85}
 {% endhighlight %}
