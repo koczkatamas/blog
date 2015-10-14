@@ -5,7 +5,7 @@ modified: 2015-10-15
 tags: asis asis2015finals web
 ---
 
-*This challenge was solved by and the write up was written by one of my teammates, nguyen*
+*This challenge was solved by and the write up was written by teammates, nguyen and akg*
 
 Through testing to know it's a blind cmd injection in filename of a file upload.
 
