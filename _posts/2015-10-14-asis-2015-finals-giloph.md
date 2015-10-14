@@ -68,6 +68,8 @@ Setting this file in File > Preferences > Protocols > SSL as the (Pre)-Master-Se
 CLIENT_RANDOM 7712ca85fcd84204104909836b7c92cec6094277f1c0efe885102d74a30b6dcc 599dae45bea108da405cebfa1fd4414acccdc24ab4262c1c1e86af60da2de9712933343d3c6f92486db4bdbda9d693f8
 {% endhighlight %}
 
+![alt]({{ site.url }}/images/asis2015finals/giloph.png) 
+
 After decompressing the HTTP response body I got the file's content:
 
 {% highlight text %}
