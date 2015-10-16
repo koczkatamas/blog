@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: png2ppm"
+title: "ASIS 2015 Finals: (pwn450) png2ppm"
 modified: 2015-10-14
 tags: asis, asis2015finals, pwn
 ---

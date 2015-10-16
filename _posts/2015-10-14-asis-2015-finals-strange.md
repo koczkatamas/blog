@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: Strange"
+title: "ASIS 2015 Finals: (for150) Strange"
 modified: 2014-12-24
 tags: asis, asis2015finals, crypto
 ---

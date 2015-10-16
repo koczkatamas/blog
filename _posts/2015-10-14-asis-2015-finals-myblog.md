@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: Myblog"
+title: "ASIS 2015 Finals: (web150) Myblog"
 modified: 2015-10-15
 tags: asis asis2015finals web
 ---

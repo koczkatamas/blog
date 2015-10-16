@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: Calm down"
+title: "ASIS 2015 Finals: (trivia75) Calm down"
 modified: 2015-10-14
 tags: asis asis2015finals Trivia
 ---

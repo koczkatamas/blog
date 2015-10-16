@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: MBTI"
+title: "ASIS 2015 Finals: (for200) MBTI"
 modified: 2015-10-14
 tags: asis asis2015finals forensics
 ---

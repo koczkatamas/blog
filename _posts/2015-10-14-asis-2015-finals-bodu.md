@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: Bodu"
+title: "ASIS 2015 Finals: (crypto175) Bodu"
 modified: 2015-10-14
 tags: asis asis2015finals crypto
 ---

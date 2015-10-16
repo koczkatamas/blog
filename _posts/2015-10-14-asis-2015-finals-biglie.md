@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: Big Lie"
+title: "ASIS 2015 Finals: (for100) Big Lie"
 modified: 2015-10-15
 tags: asis asis2015finals forensics
 ---
