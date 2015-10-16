@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (crypto300) Giloph"
+title: "ASIS 2015 Finals: Giloph (crypto300)"
 modified: 2015-10-15
 tags: asis asis2015finals crypto
 ---

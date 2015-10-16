@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (misc75) meow meow"
+title: "ASIS 2015 Finals: meow meow (misc75)"
 modified: 2015-10-14
 tags: asis, asis2015finals, misc
 ---

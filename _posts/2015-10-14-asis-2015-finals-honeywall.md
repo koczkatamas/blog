@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (crypto250) Honeywall"
+title: "ASIS 2015 Finals: Honeywall (crypto250)"
 modified: 2015-10-15
 tags: asis asis2015finals crypto
 ---

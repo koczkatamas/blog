@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (pwn300) Shop-2"
+title: "ASIS 2015 Finals: Shop-2 (pwn300)"
 modified: 2015-10-14
 tags: asis, asis2015finals, pwn
 ---

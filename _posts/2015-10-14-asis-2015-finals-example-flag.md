@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (trivia1) Example flag"
+title: "ASIS 2015 Finals: Example flag (trivia1)"
 modified: 2015-10-15
 tags: asis asis2015finals misc
 ---

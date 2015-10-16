@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (rev150) ASIS Hash"
+title: "ASIS 2015 Finals: ASIS Hash (rev150)"
 modified: 2015-10-14
 tags: asis asis2015finals reverse
 ---

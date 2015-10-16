@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (crypto75) Simple"
+title: "ASIS 2015 Finals: Simple (crypto75)"
 modified: 2015-10-15
 tags: asis asis2015finals crypto
 ---

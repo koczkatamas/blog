@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (pwn250) calcexec II"
+title: "ASIS 2015 Finals: calcexec II (pwn250)"
 modified: 2015-10-14
 tags: asis asis2015finals .net mono pwn
 ---

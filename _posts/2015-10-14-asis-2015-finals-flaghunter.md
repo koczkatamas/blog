@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (misc75) Flag Hunter"
+title: "ASIS 2015 Finals: Flag Hunter (misc75)"
 modified: 2015-10-14
 tags: asis asis2015finals misc
 ---

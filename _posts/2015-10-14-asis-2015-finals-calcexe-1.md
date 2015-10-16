@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (pwn200) calcexec I"
+title: "ASIS 2015 Finals: calcexec I (pwn200)"
 modified: 2015-10-14
 tags: asis asis2015finals [digital signature] .net
 ---

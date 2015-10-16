@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (rev125) License"
+title: "ASIS 2015 Finals: License (rev125)"
 modified: 2015-10-15
 tags: asis asis2015finals reverse
 ---

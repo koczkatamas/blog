@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASIS 2015 Finals: (web125) Ultra compression"
+title: "ASIS 2015 Finals: Ultra compression (web125)"
 modified: 2015-10-15
 tags: asis asis2015finals web
 ---
