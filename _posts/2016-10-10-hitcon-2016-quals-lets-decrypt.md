@@ -10,14 +10,18 @@ After checking the source code of the challenge, it was clear that the flag was 
 AES is secure enough not to crack the key, but we can find out the IV with the following 'trick':
 (the images at https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC is always a good source of material to help thinking through what happens)
 
+{% raw %}
 I replaced the first block of example encrypted text with the second block (so the blocks were in the following order now: c2|c2|c3), I kept the third block, so the padding remained correct and I decrypted it.
+{% endraw %}
 
 {% highlight text %}
 Encrypted: e04f07e4dcd6cf096b47ba48b357814ee04f07e4dcd6cf096b47ba48b357814e4a89ef1cfad33e1dd28b892ba7233285
 Decrypted: 7e009b446efd0ba5221b7f1a13f34ce9cc7bf2c48246e4e51f7cb53eda8495e36865206c617a7920646f67
 {% endhighlight %}
 
+{% raw %}
 If we write down how the encrypted blocks created, we get this (p = plaintext, c = ciphertext, ^ = xor, E = AES encrypt, || = block boundary):
+{% endraw %}
 
 {% highlight text %}
 original ciphertext: c1 = E(p1 ^ IV)  ||  c2 = E(p2 ^ c1)  ||  c3 = E(p3 ^ c2)

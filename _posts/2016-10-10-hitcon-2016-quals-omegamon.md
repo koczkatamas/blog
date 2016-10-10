@@ -22,12 +22,15 @@ The only weird one (0xBDB) was the one which calculated this: `(x ** (n!)) % N`.
 
 After finished reversing these methods, only main remained which does the following:
 
-{% highlight text %}
- - converts N to BigInteger format
-   - N = 70175232617155622721369403112218008731727137018442195462238305570433409024579, it can be factorized into p = 208467877680031083617459630285634936973 and q = 336623720633184311690592367893275345423 (I used factordb.com for factoring the modulus)
- - calls srand(33177711) and generates 256 rand() numbers and converts them to BigInteger
- - runs the following loop:
- 
+- converts N to BigInteger format
+  - N = `70175232617155622721369403112218008731727137018442195462238305570433409024579`, it can be factorized into (I used factordb.com):
+  - p = 208467877680031083617459630285634936973 and 
+  - q = 336623720633184311690592367893275345423
+- calls srand(33177711) and generates 256 rand() numbers and converts them to BigInteger
+- runs the following loop:
+
+{% highlight c %} 
+{% raw %}
    for(flagCounter = 1; ; flagCounter++){
        vec6 = (rand[0] ** (flagCounter!)) - 1;
        for(j = 1; j <= 255; ++j){
@@ -40,7 +43,6 @@ After finished reversing these methods, only main remained which does the follow
            break;
    }
    
-{% raw  %}
    printf("flag is: hitcon{%lx%016lx}\n", *((_QWORD *)&flagCounter + 1), (_QWORD)flagCounter);
 {% endraw %}
 {% endhighlight %}
