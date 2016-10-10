@@ -40,7 +40,9 @@ After finished reversing these methods, only main remained which does the follow
            break;
    }
    
+{% raw  %}
    printf("flag is: hitcon{%lx%016lx}\n", *((_QWORD *)&flagCounter + 1), (_QWORD)flagCounter);
+{% endraw %}
 {% endhighlight %}
 
 Of course it will never finish as it would take too long time.
