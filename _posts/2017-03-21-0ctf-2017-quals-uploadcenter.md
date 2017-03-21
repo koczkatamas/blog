@@ -11,7 +11,7 @@ We had the following menus:
  - "1 :) Fill your information"
    - It reads your team name to a 20 byte buffer and prints it out. It can be used to leak data from stack if you don't fill the 20 byte buffer. For example it can be used to leak the heap base address. But we never used this vulnerability in the final exploit.
  - "2 :) Upload and parse File"
-   - This is where the main functionality lies: you can upload a zlib-compressed PNG image, it will parse its headers, allocate a *width\*height-sized buffer with mmap*, and copies the content into it (but limits the size to the buffer length, so it does not cause overflow). It also puts various metadata into a linked list about these uploaded files, including the decompressed content's size.
+   - This is where the main functionality lies: you can upload a zlib-compressed PNG image, it will parse its headers, allocate a **width\*height-sized buffer with mmap**, and copies the content into it (but limits the size to the buffer length, so it does not cause overflow). It also puts various metadata into a linked list about these uploaded files, including the decompressed content's size.
  - "3 :) Show File info"
    - Prints out the width, height and "pixels" (bit depth) properties of the chosen file. Not used in the exploit.
  - "4 :) Delete File"
@@ -29,7 +29,7 @@ Also despite that the PNG is a compressed file format, there is an additional la
 
 If we take a closer look at the buffer allocation, it turns out fast that the  allocation size and the length used for munmap can differ.
 
-This is exactly the same situation that my teammate *tukan* described in [one of his ptmalloc fanzine back in 2016](http://tukan.farm/2016/07/27/munmap-madness/), so he could point us into the correct direction right away.
+This is exactly the same situation that my teammate **tukan** described in [one of his ptmalloc fanzine back in 2016](http://tukan.farm/2016/07/27/munmap-madness/), so he could point us into the correct direction right away.
 
 Although the next mapped memory segment after our mmap'd allocation is either the read-only data section of the libc or the guard page before the stack of a thread created by either the 5th or 6th menu item, the munmap can remove them if we use a bigger length than the original allocation was.
 
@@ -46,7 +46,7 @@ So our plan is the following:
    - leaks libc address (puts in our case)
    - unlocks the mutex, so the main thread won't block anymore
    - make the thread sleep forever, so its broken state won't cause any problems for us (for example race condition)
- - we calculate the address of one of the one-gadget-RCEs ([https://github.com/david942j/one_gadget](thanks david942j for his tool))
+ - we calculate the address of one of the one-gadget-RCEs ([thanks to david942j for his tool](https://github.com/david942j/one_gadget))
    - calling system did not work for me, probably something broke meanwhile
  - we repeat everything from the beginning, but this time we call the one-gadget-RCE in the ROP chain
 
