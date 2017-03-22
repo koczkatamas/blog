@@ -6,7 +6,7 @@ tags: 0ctf, 0ctf2017quals, crypto
 ---
 *These challenges were solved by and the writeups were written by one of my teammates, @ngg.*
 
-=== Integrity
+# Integrity
 
 There was an encryption scheme, we had to calculate encrypt('admin') based on that we could encrypt anything other than the string 'admin'.
 
@@ -32,7 +32,7 @@ Sending this to the server gave me
 flag{Easy_br0ken_scheme_cann0t_keep_y0ur_integrity}
 {% endhighlight %}
 
-=== OneTimePad1 && OneTimePad2
+# OneTimePad1 && OneTimePad2
 
 Both tasks were about breaking a random generator. The hardest part was to understand the ideas and math based on the given python codes.
 
@@ -57,7 +57,7 @@ def rng():
 		next, seed = calculate(next, seed)
 {% endhighlight %}
 
-== OneTimePad1
+## OneTimePad1
 
 In OneTimePad1 the calculate function returned (process(next, seed), seed) and the flag and two known strings were one time pad encrypted
 with its first 3 outputs respectively. Based on the second and third encrypted string we knew the second and third generated random numbers (`r2` and `r3`), we had to calculate the first (`r1`).
@@ -69,14 +69,14 @@ Calculating square roots over binary fields are easy because squaring is a linea
 
 Being linear means that there exists a matrix `S` such that `x**2 = x*S` for every `x`.
 
-Calculating ``S is straightforward, it happens to be invertible so we can calculate square roots as well (every field element has exactly 1 square root).
+Calculating `S` is straightforward, it happens to be invertible so we can calculate square roots as well (every field element has exactly 1 square root).
 
 We now know seed and we also know that `r1 = sqrt(r2)+seed` so we can decrypt the flag: 
 {% highlight text %}
 flag{t0_B3_r4ndoM_en0Ugh_1s_nec3s5arY}
 {% endhighlight %}
 
-== OneTimePad2
+## OneTimePad2
 
 In OneTimePad2 the calculate function was more complicated.
 
@@ -92,7 +92,7 @@ To get seed from this we first calculated `A**seed` as `((A-1)*r2 + B)/((A-1)*r1
 
 This last part was the hardest for me as I couldn't get Sage to solve it (I tried in lots of different ways but it always threw NotImplementedExceptions...).
 
-After the competition I've read hellman's writeup (http://mslc.ctf.su/wp/0ctf-2017-quals-onetimepad-1-and-2/), he found a way to do this in Sage.
+After the competition I've read [hellman's writeup](http://mslc.ctf.su/wp/0ctf-2017-quals-onetimepad-1-and-2/), he found a way to do this in Sage.
 
 I knew that Mathematica cannot do this either, so I had no better idea than to look for any implementation on the web and read articles on how solve this if I have to implement my own.
 
