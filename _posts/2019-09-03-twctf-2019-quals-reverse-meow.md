@@ -86,7 +86,7 @@ So I simply tried to reorganize the columns in the same order as it changed on m
 So the flag was:
 
 {% highlight text %}
-TWCTF{t1ny_XXE_st1ll_ex1sts_everywhere}
+TWCTF{Ny4nNyanNy4n_M30wMe0wMeow}
 {% endhighlight %}
 
 And this was my solver code (C#):
