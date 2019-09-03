@@ -33,22 +33,23 @@ So I encrypted a full black and white 768x768 PNG (just like the original). Actu
 
 ## Black
 
-***
 ![alt]({{ site.url }}/images/twctf2019quals/black.png)
-***
-was encrypted to
-***
+
+_was encrypted to_
+
 ![alt]({{ site.url }}/images/twctf2019quals/black_enc.png)
 
 ## White
 
 ***
+
 ![alt]({{ site.url }}/images/twctf2019quals/white.png)
+
 ***
-was encrypted to
-***
+
+_was encrypted to_
+
 ![alt]({{ site.url }}/images/twctf2019quals/white_enc.png)
-***
 
 ## Flag (first try)
 
@@ -62,23 +63,19 @@ Then I encrypted images with unique columns and decrypted with my method and res
 
 ## Color
 
-***
 ![alt]({{ site.url }}/images/twctf2019quals/color.png)
-***
-was encrypted to
-***
+
+_was encrypted to_
+
 ![alt]({{ site.url }}/images/twctf2019quals/color_dec.png)
-***
 
 ## Unique colors
 
-***
 ![alt]({{ site.url }}/images/twctf2019quals/unique.png)
-***
-was encrypted to
-***
+
+_was encrypted to_
+
 ![alt]({{ site.url }}/images/twctf2019quals/unique_enc_dec.png)
-***
 
 ## Flag (final)
 
