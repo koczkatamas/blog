@@ -30,8 +30,26 @@ BUT I thought: okay, so it reads a PNG and generates some random, uses some magi
 
 So I encrypted a full black and white 768x768 PNG (just like the original). Actually I did it both twice and got the exact same result (for the same color), and I got the inverse for the other, so I could be sure that the algorithm kind of static and there is no random stored in the encrypted file.
 
-![alt]({{ site.url }}/images/twctf2019quals/black.png) -> ![alt]({{ site.url }}/images/twctf2019quals/black_enc.png)
-![alt]({{ site.url }}/images/twctf2019quals/white.png) -> ![alt]({{ site.url }}/images/twctf2019quals/white_enc.png)
+## Black
+
+***
+![alt]({{ site.url }}/images/twctf2019quals/black.png)
+***
+was encrypted to
+***
+![alt]({{ site.url }}/images/twctf2019quals/black_enc.png)
+
+## White
+
+***
+![alt]({{ site.url }}/images/twctf2019quals/white.png)
+***
+was encrypted to
+***
+![alt]({{ site.url }}/images/twctf2019quals/white_enc.png)
+***
+
+## Flag (first try)
 
 Okay, the result was similar to our encrypted flag, so I simply **xored** the `black_enc.png` with `flag_enc.png` and I got this:
 
@@ -41,12 +59,31 @@ Wow that is almost a readable `flag`, but it looks like the columns were mixed.
 
 Then I encrypted images with unique columns and decrypted with my method and result seemed consistent:
 
-![alt]({{ site.url }}/images/twctf2019quals/color.png) -> ![alt]({{ site.url }}/images/twctf2019quals/color_dec.png)
-![alt]({{ site.url }}/images/twctf2019quals/unique.png) -> ![alt]({{ site.url }}/images/twctf2019quals/unique_enc_dec.png)
+## Color
+
+***
+![alt]({{ site.url }}/images/twctf2019quals/color.png)
+***
+was encrypted to
+***
+![alt]({{ site.url }}/images/twctf2019quals/color_dec.png)
+***
+
+## Unique colors
+
+***
+![alt]({{ site.url }}/images/twctf2019quals/unique.png)
+***
+was encrypted to
+***
+![alt]({{ site.url }}/images/twctf2019quals/unique_enc_dec.png)
+***
+
+## Flag (final)
 
 So I simply tried to reorganize the columns in the same order as it changed on my test file and I got the original image with the flag actually:
 
-![alt]({{ site.url }}/images/twctf2019quals/flag_dec.png)
+![alt]({{ site.url }}/images/twctf2019quals/flag_enc_dec.png)
 
 So the flag was:
 
