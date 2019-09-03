@@ -8,6 +8,7 @@ tags: twctf, twctf2019quals, reverse
 We got two files with the challenge:
 * `meow.n`, running `file` command on it said: `NekoVM bytecode (418 global symbols, 323 global fields, 35212 bytecode ops)`
 * `flag_enc.png` which was a seemingly encrypted PNG image:
+
 ![alt]({{ site.url }}/images/twctf2019quals/flag_enc.png)
 
 I googled `NekoVM` which lead me to https://nekovm.org/ which said:
