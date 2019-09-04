@@ -32,7 +32,7 @@ Meanwhile IDA analyzed the binary and I saw there are a lot of functions with sy
 
 So my teammates tried to play with the GraalVM toolchain, compile an empty app, BinDiff it with the challenge binary and try to figure out which parts of the binary contained framework code and where is the encryption.
 
-Meanwhile I basically **binary searched** the binary with GDB (+pwndbg), searching for my test input strings / encrypted output in the memory and putting memory read/write watchpoints the these addresses. Without ASLR, the binary run the same way every execution, every memory address was the same, etc, so this technique worked quite well.
+Meanwhile I basically **binary searched** the binary with GDB (+pwndbg), searching for my test input strings / encrypted output in the memory and putting memory read/write watchpoints to these addresses to find out on which part of the code the encryption takes place. Without ASLR, the binary run the same way every execution, every memory address was the same, etc, so this technique worked quite well.
 
 It turned out fast that this part of the binary is the interesting one:
 ```c
