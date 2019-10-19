@@ -52,7 +52,8 @@ void __fastcall sub_555555554C7E(__int64 a1, __int64 a2)
   codes[4].codePtr = (char *)code5;
   for ( i = 1; i <= 5; ++i )
   {
-    *((_DWORD *)&basePtr + 4 * i) = codeXorKeys[i - 1];// packs xorKey and len values into codes[i].xorKeyAndLen
+    // packs xorKey and len values into codes[i].xorKeyAndLen
+    *((_DWORD *)&basePtr + 4 * i) = codeXorKeys[i - 1];
     *((_DWORD *)&basePtr + 4 * i + 1) = codeLengths[i - 1];
   }
   basePtr = 0x1100000000LL;
@@ -107,10 +108,10 @@ The `RUN_ENC_CODE_WITH_1_ARG` and `RUN_ENC_CODE_WITH_2_ARGS` methods decrypt the
 Although it is clearly visible from the code where the XOR key comes from:
 ```c
 load:0000555555756AE0 ; unsigned int codeXorKeys[5]
-load:0000555555756AE0 codeXorKeys     dd 8EB5034Ah, 0C6FFDA44h, 85EA3FE1h, 42AD9EF2h, 77E2535Ch
-load:0000555555756AE0                                         ; DATA XREF: sub_555555554C7E+FE↑o
-load:0000555555756B00 codeLengths     dd 10Bh, 1B1h, 2E4h, 3E6h, 0BFh
-load:0000555555756B00                                         ; DATA XREF: sub_555555554C7E+134↑o
+load:0000555555756AE0 codeXorKeys  dd 8EB5034Ah, 0C6FFDA44h, 85EA3FE1h, 42AD9EF2h, 77E2535Ch
+load:0000555555756AE0                             ; DATA XREF: sub_555555554C7E+FE↑o
+load:0000555555756B00 codeLengths  dd 10Bh, 1B1h, 2E4h, 3E6h, 0BFh
+load:0000555555756B00                             ; DATA XREF: sub_555555554C7E+134↑o
 ```
 
 I must have some brainfart or something at the time of the competition because I somehow did not use the XOR key during the competition (I assumed we don't know these values - I just discovered them now at the time of writing this writeup... #fail) so instead of using these values I assumed every code part will start with
@@ -201,7 +202,9 @@ It's a simple repeating XOR cipher with the key `DuMb` == `0x624D7544` modified 
 Decrypted with the following code:
 
 ```csharp
-var flagPart1 = EncodingHelper.GetString(CryptoUtils.Xor(Conversion.HexToBytes("49 26 72 35 76 31 13 04 4E 5E".Replace(" ", "")), BitConverter.GetBytes(0x624D7544).Select(x => (byte)(x - 7)).ToArray()));
+var flagPart1 = EncodingHelper.GetString(CryptoUtils.Xor(
+        Conversion.HexToBytes("49 26 72 35 76 31 13 04 4E 5E".Replace(" ", "")), 
+        BitConverter.GetBytes(0x624D7544).Select(x => (byte)(x - 7)).ToArray()));
 ```
 
 And got the first part of our flag: `tH4nK_U_s0`.
@@ -247,9 +250,11 @@ __int64 __fastcall sub_555555756140(char *input)
     key[3] = '3';
     for ( i = 0; i <= 31; ++i )
     {
-      inputPart1 += (((inputPart2 >> 5) ^ 16 * inputPart2) + inputPart2) ^ (key[v8 & 3] + v8);
+      inputPart1 += (((inputPart2 >> 5) ^ 16 * inputPart2) + inputPart2) ^ 
+                        (key[v8 & 3] + v8);
       v8 += 0x1337DEAD;
-      inputPart2 += (((inputPart1 >> 5) ^ 16 * inputPart1) + inputPart1) ^ (key[(v8 >> 11) & 3] + v8);
+      inputPart2 += (((inputPart1 >> 5) ^ 16 * inputPart1) + inputPart1) ^
+                        (key[(v8 >> 11) & 3] + v8);
     }
     if ( inputPart1 != encValue[2 * iRound] )
       v7 = 0;
@@ -290,9 +295,11 @@ for (var iRound = 0; iRound <= 3; ++iRound)
         var v8 = 0;
         for (var i = 0; i <= 31; ++i)
         {
-            inputPart1 += (uint)((((inputPart2 >> 5) ^ 16 * inputPart2) + inputPart2) ^ (key[v8 & 3] + v8));
+            inputPart1 += (uint)((((inputPart2 >> 5) ^ 16 * inputPart2) + inputPart2) ^ 
+                            (key[v8 & 3] + v8));
             v8 += 0x1337DEAD;
-            inputPart2 += (uint)((((inputPart1 >> 5) ^ 16 * inputPart1) + inputPart1) ^ (key[(v8 >> 11) & 3] + v8));
+            inputPart2 += (uint)((((inputPart1 >> 5) ^ 16 * inputPart1) + inputPart1) ^ 
+                            (key[(v8 >> 11) & 3] + v8));
         }
 
         if (inputPart1 != encValue[2 * iRound])
@@ -536,7 +543,8 @@ byte[] CustomRc4(byte[] key, int length)
 
 var rc4key = Conversion.HexToBytes(" 50 6C 33 61 73 5F 64 30  6E 27 74 5F 63 52 34 35   68 5F 31 6E 5F 2B 68 21 73 5F 66 55 6E 43 2B 31 30 6E  ".Replace(" ", ""));
 var encFlag = Conversion.HexToBytes("2B 55 5D 93 A0 43 DD 14 43 52 7D E5  ".Replace(" ", ""));
-var part4 = EncodingHelper.GetString(CryptoUtils.XorEqual(encFlag, CustomRc4(rc4key, encFlag.Length)));
+var part4 = EncodingHelper.GetString(
+                CryptoUtils.XorEqual(encFlag, CustomRc4(rc4key, encFlag.Length)));
 ```
 
 This gave me the fourth part of the flag: `L4g_1_Luv_y0`.
