@@ -11,7 +11,7 @@ To be frank, I don't really know what difference should it mean, maybe the file 
 
 ## The main function
 
-First step was to find out the main, which I had no idea how to do in (larger) core dump file, so I searched for `xor` instructions where I kind of failed to find the real main, so then I searched the strings in the binary and found ones like `Congratz ! The flag is hitcon{%s} :)` which of course give me instant success of finding the real main via cross-referencing the usages of this symbol. The main was at `sub_555555554C7E`.
+First step was to find out the main, which I had no idea how to do in (larger) core dump file, so I searched for `xor` instructions where I kind of failed to find the real main, so then I searched the strings in the binary and found ones like `Congratz ! The flag is hitcon{% raw %}{%s}{% endraw %} :)` which of course give me instant success of finding the real main via cross-referencing the usages of this symbol. The main was at `sub_555555554C7E`.
 
 I reverse-engineered the main function and got this code:
 
@@ -87,7 +87,7 @@ void __fastcall sub_555555554C7E(__int64 a1, __int64 a2)
     zeroBuffer(tmpBuf, 55);
     copyString(tmpBuf, &flagBuffer[48], 4);
     RUN_ENC_CODE_WITH_1_ARG(codes[4].codePtr, codes[4].xorKeyAndLen, tmpBuf);
-    printf("Congratz ! The flag is hitcon{%s} :)\n", flagBuffer, a2);
+    printf("Congratz ! The flag is hitcon{% raw %}{%s}{% endraw %} :)\n", flagBuffer, a2);
   }
   else
   {
