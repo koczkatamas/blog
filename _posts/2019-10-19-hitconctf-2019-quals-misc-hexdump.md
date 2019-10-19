@@ -198,7 +198,8 @@ string GetHash()
     return tcp.ReadLine();
 }
 
-string Sha1(string value) => Conversion.BytesToHex(SHA1.Create().ComputeHash(EncodingHelper.GetBytes(value)));
+string Sha1(string value) => Conversion.BytesToHex(
+    SHA1.Create().ComputeHash(EncodingHelper.GetBytes(value)));
 
 var values = new Stack<string>();
 while (true)
@@ -216,7 +217,8 @@ var flag = "";
 while (values.Count > 0)
 {
     var currEncoded = values.Pop();
-    var win = (char)Enumerable.Range(0, 256).Single(x => Sha1(new string('_', values.Count) + (char)x + flag) == currEncoded);
+    var win = (char)Enumerable.Range(0, 256).Single(x => 
+                Sha1(new string('_', values.Count) + (char)x + flag) == currEncoded);
     Console.WriteLine($"Found: {(byte)win} ('{win}')");
     flag = win + flag;
 }
